@@ -351,7 +351,7 @@ INCIDENT_COLUMNS = [
 
 ## 🐛 트러블슈팅
 
-### 1. AppleScript 권限 오류
+### 1. AppleScript 권한 오류
 ```
 AppleScript 오류: Application isn't allowed to send keystrokes
 ```
