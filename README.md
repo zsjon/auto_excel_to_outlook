@@ -1,8 +1,19 @@
 # T-View Automation
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Platform: macOS](https://img.shields.io/badge/platform-macOS-lightgrey.svg)](https://www.apple.com/macos/)
+[![Release](https://img.shields.io/github/v/release/zsjon/Auto_Excel_to_Outlook?include_prereleases)](https://github.com/zsjon/Auto_Excel_to_Outlook/releases)
+
 **T-View 장애 메일 자동화 및 일일보고 시스템**
 
 Outlook 메일 모니터링, Excel 기록, 자동 보고서 발송을 지원하는 독립 실행형 자동화 패키지입니다.
+
+<p align="center">
+  <img src="https://img.shields.io/badge/AppleScript-Outlook-blue" alt="AppleScript"/>
+  <img src="https://img.shields.io/badge/Excel-openpyxl-green" alt="Excel"/>
+  <img src="https://img.shields.io/badge/Scheduler-APScheduler-orange" alt="Scheduler"/>
+</p>
 
 ---
 
