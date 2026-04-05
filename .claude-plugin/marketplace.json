@@ -1,0 +1,32 @@
+{                                                                                                                     
+    "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",                                             
+    "name": "t-view-automation",                                                                                        
+    "description": "T-View 장애 메일 자동화 및 일일보고 시스템 - Outlook 메일 모니터링, Excel 기록, 자동 보고서 발송",  
+    "owner": {                                                                                                          
+      "name": "Seowon Info",                                                                                            
+      "email": "zsjon@github.com"                                                                                       
+    },                                                                                                                  
+    "plugins": [                                                                                                        
+      {                                                                                                             
+        "name": "t-view-automation",                                                                                    
+        "description": "macOS 기반 T-View 장애 메일 모니터링, Excel 자동 기록, 일일보고 자동 발송 시스템",              
+        "version": "1.0.0",                                                                                             
+        "author": {                                                                                                     
+          "name": "Seowon Info",                                                                                        
+          "email": "zsjon@github.com"                                                                                   
+        },                                                                                                              
+        "source": "./",                                                                                                 
+        "category": "productivity",                                                                                     
+        "homepage": "https://github.com/zsjon/Auto_Excel_to_Outlook",                                                   
+        "tags": [                                                                                                       
+          "outlook",                                                                                                    
+          "excel",                                                                                                      
+          "automation",                                                                                                 
+          "incident",                                                                                                   
+          "report",                                                                                                 
+          "macos"                                                                                                       
+        ]                                                                                                               
+      }                                                                                                                 
+    ],                                                                                                                  
+    "version": "1.0.0"                                                                                                  
+  }
