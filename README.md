@@ -105,6 +105,75 @@ mkdir -p data/monthly_reports
 
 ---
 
+## 🧪 테스트 방법
+
+설치가 완료되면 각 기능을 개별적으로 테스트할 수 있습니다.
+
+### 테스트 1: 장애 메일 파싱 테스트
+```bash
+source venv/bin/activate
+python3 test_incident.py
+```
+**용도**: 장애 메일 파싱 로직이 제대로 동작하는지 확인
+- 샘플 메일 데이터로 파싱 테스트
+- Excel 쓰기 기능 검증
+- 서버명 추출, 완료 메일 감지 등 확인
+
+**출력 예시**:
+```
+[테스트] 장애 메일 파싱 및 Excel 기록
+→ 파싱 결과: {'접수자명': 'TiDC 운영팀', ...}
+→ Excel 기록 완료: ./data/monthly_reports/incident_2026-04.xlsx
+```
+
+---
+
+### 테스트 2: 일일보고 발송 테스트 (실제 메일 발송)
+```bash
+source venv/bin/activate
+
+# 오늘 날짜 기준 보고서 발송 (주말이면 직전 금요일)
+python3 main.py --mode report
+
+# 또는 특정 날짜 지정
+python3 main.py --mode report --date 2026-01-15
+```
+**용도**: 실제 Outlook을 통한 메일 발송 테스트
+- Excel에서 일일보고 데이터 읽기 확인
+- HTML 이메일 생성 확인
+- `.env`에 설정된 수신자에게 **실제 메일 발송**
+
+⚠️ **주의**: 이 테스트는 `.env`의 `REPORT_RECIPIENTS`로 **실제 메일을 발송**합니다. 테스트용 이메일 주소로 먼저 테스트하세요.
+
+**출력 예시**:
+```
+[2026-04-05 16:00] 일일보고 발송 시작 (2026-04-05)
+[mail_sender] 발송 완료 → ['manager@example.com']
+일일보고 발송 완료
+```
+
+---
+
+### 테스트 3: 장애 메일 폴링 테스트 (1회 실행)
+```bash
+source venv/bin/activate
+python3 main.py --mode poll
+```
+**용도**: Outlook 메일함에서 실제 장애 메일 수신 테스트
+- Outlook 연동 확인
+- 미읽음 메일 감지
+- Excel 자동 기록 확인
+
+**출력 예시**:
+```
+[2026-04-05 16:00] 장애 메일 폴링 시작
+  → 미처리 장애 메일 3건
+  [업데이트] 'UNIX AP 서버 장애 발생' → ./data/monthly_reports/incident_2026-04.xlsx
+  장애 메일 폴링 완료
+```
+
+---
+
 ## ⚙️ 사용 방법
 
 ### 모드 1: 장애 메일 폴링 (1회 실행)
