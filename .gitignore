@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# 환경변수 (보안)
+.env
+
+# Excel 데이터 파일
+data/
+*.xlsx
+*.xls
+
+# 로그 파일
+logs/
+*.log
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OMC (oh-my-claudecode)
+.omc/
+
+# 임시 파일
+*.tmp
+*.bak
+*.swp
+*~

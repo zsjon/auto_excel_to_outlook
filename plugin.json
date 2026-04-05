@@ -1,0 +1,137 @@
+{
+  "name": "t-view-automation",
+  "version": "1.0.0",
+  "description": "T-View 장애 메일 자동화 및 일일보고 시스템 - Outlook 메일 모니터링, Excel 기록, 자동 보고서 발송",
+  "author": "Seowon Info",
+  "license": "MIT",
+  "platform": "darwin",
+  "requires_python": ">=3.10",
+
+  "entry_points": {
+    "poll": {
+      "command": "python main.py --mode poll",
+      "description": "장애 메일 수신 및 Excel 기록 (1회 실행)"
+    },
+    "report": {
+      "command": "python main.py --mode report",
+      "description": "일일보고 Excel 읽기 및 Outlook 발송 (1회 실행)",
+      "options": {
+        "date": {
+          "type": "string",
+          "format": "YYYY-MM-DD",
+          "description": "보고 날짜 (기본값: 오늘)",
+          "example": "2026-01-01"
+        }
+      }
+    },
+    "scheduler": {
+      "command": "python main.py --mode scheduler",
+      "description": "장애 메일 폴링 + 일일보고 스케줄러 (상시 실행)"
+    }
+  },
+
+  "schedule": {
+    "poll_incidents": {
+      "interval": "30 minutes",
+      "description": "장애 메일 자동 폴링"
+    },
+    "daily_report": {
+      "cron": "0 9 * * *",
+      "timezone": "Asia/Seoul",
+      "description": "일일보고 자동 발송"
+    }
+  },
+
+  "dependencies": {
+    "python": [
+      "openpyxl==3.1.5",
+      "pandas==2.2.3",
+      "python-dotenv==1.0.1",
+      "APScheduler==3.10.4"
+    ],
+    "system": [
+      "Microsoft Outlook (Mac)"
+    ]
+  },
+
+  "configuration": {
+    "schema": {
+      "OPERATOR_EMAIL": {
+        "type": "string",
+        "format": "email",
+        "required": true,
+        "description": "운영 계정 이메일 주소",
+        "example": "operator@example.com"
+      },
+      "REPORT_RECIPIENTS": {
+        "type": "string",
+        "required": true,
+        "description": "보고서 수신자 (쉼표로 구분)",
+        "example": "manager@example.com,team@example.com"
+      },
+      "REPORT_CC": {
+        "type": "string",
+        "required": false,
+        "description": "보고서 참조 (쉼표로 구분, 선택사항)",
+        "example": "cc1@example.com,cc2@example.com"
+      },
+      "INCIDENT_EXCEL_DIR": {
+        "type": "string",
+        "required": false,
+        "default": "./data/monthly_reports",
+        "description": "월간 장애 Excel 파일 저장 디렉토리"
+      },
+      "DAILY_REPORT_EXCEL_PATH": {
+        "type": "string",
+        "required": false,
+        "default": "./data/daily_report.xlsx",
+        "description": "일일보고 Excel 템플릿 파일 경로"
+      },
+      "INCIDENT_MAIL_KEYWORDS": {
+        "type": "string",
+        "required": false,
+        "default": "TiDC 운영팀,AT Platform DevOps,장애,점검 요청,리빌딩,황색 점등",
+        "description": "장애 메일 감지 키워드 (쉼표로 구분)"
+      }
+    }
+  },
+
+  "file_structure": {
+    "main.py": "진입점 및 스케줄러",
+    "config.py": "환경 설정 로더",
+    "excel/": "Excel 읽기/쓰기 모듈",
+    "outlook/": "Outlook 메일 연동 모듈 (AppleScript)",
+    "parsers/": "메일 및 데이터 파싱 모듈",
+    "data/": "Excel 데이터 저장 디렉토리",
+    ".env": "환경변수 설정 파일 (수동 생성 필요)"
+  },
+
+  "deployment": {
+    "install": [
+      "git clone <repository> t-view-automation",
+      "cd t-view-automation",
+      "python3 -m venv venv",
+      "source venv/bin/activate",
+      "pip install -r requirements.txt",
+      "cp .env.example .env",
+      "# .env 파일 수정하여 환경변수 설정"
+    ],
+    "run": {
+      "once": "python main.py --mode poll",
+      "daemon": "python main.py --mode scheduler"
+    }
+  },
+
+  "changelog": {
+    "1.0.0": {
+      "date": "2026-04-05",
+      "changes": [
+        "Initial release",
+        "Outlook 메일 자동 모니터링 (AppleScript)",
+        "장애 메일 파싱 및 Excel 기록",
+        "일일보고 HTML 메일 자동 발송",
+        "스케줄러 기반 자동화 (APScheduler)"
+      ]
+    }
+  }
+}
